@@ -1,17 +1,66 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  
+  <div class="main">
+      <div class="nex-hour">
+       <ion-item style="margin: 1%;">
+          <p id="h1">Next Hours</p>
+       </ion-item>
+   
+
+       <div style="margin: 1%; text-align: center !important;" *ngIf="isLoading">
+        <ion-spinner  name="bubbles"></ion-spinner>
+      </div>
+      
+           <ion-slides [options]="slideOptions">
+
+             <ion-slide style="display: block; padding: 4px; text-align: center;" *ngFor="let element of data">
+                <h6> {{ element.main.temp }} <sup>*</sup></h6>
+                <h6 class="ion-text-primary"> {{ element.main.temp_max }}%</h6>
+          
+                <img src="{{'https://openweathermap.org/img/w/' +  element.weather[0].icon + '.png'}}"  alt="">
+          
+                <p style="font-size: 16px">
+                  {{ element.dt_txt | date: " EEE H:mm  a" }}
+                </p>
+             </ion-slide>
+
+         
+
+           </ion-slides>
+
+      </div>
+
+
+      <div class="nex-days">
+       <ion-item style="margin: 1%;">
+          <p id="h1">Next 5 Days</p>
+       </ion-item>
+     
+       <ion-list>
+         <ion-item *ngFor="let item of dateWiseWeahter">
+          <img src="{{'https://openweathermap.org/img/w/' +  item.icon + '.png'}}"  alt="">
+           <h6>
+             {{item.day | date:'MMM EEEE'}}
+             <ion-label style="font-size: 12px !important; ">
+              {{item.description}}
+             </ion-label>
+           </h6>
+           <ion-label slot="end">
+            {{item.tempMax}} <sup>*</sup>
+            &nbsp;
+            {{item.tempMin}} <sup>*</sup>
+           </ion-label>
+         </ion-item>
+       </ion-list>
+      </div>
+     
+
+
+  </div>
 </ion-content>

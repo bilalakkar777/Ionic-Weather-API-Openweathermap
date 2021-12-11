@@ -1,30 +1,43 @@
+
+ <ion-header id="search-bar">
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    
+    <ion-title style="font-weight: bold;">{{place}}</ion-title>
+    <ion-icon (click)="searchClicked();" name="{{isSeachClick ? 'close-circle' : 'search'}}" slot="end"  style="zoom:1.3; margin-right: 2%;" ></ion-icon>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="isSeachClick">
+    <ion-searchbar   (search)="search($event.target.value)" placeholder="Search a city" animated showCancelButton="always" style=" background-color: #FAFAFA;"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+
+
 <ion-content [fullscreen]="true">
 
-
+  
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
-
+  
   <div class="main">
       <div class="nex-hour">
        <ion-item style="margin: 1%;">
           <p id="h1">Next Hours</p>
        </ion-item>
 
-       
-       <div style="margin: 1%; text-align: center !important;" *ngIf="isLoading">
-        <ion-spinner  name="bubbles"></ion-spinner>
-      </div>
-      
-   
-      
-         
+        <div style="margin: 1%; text-align: center !important;" *ngIf="isLoading">
+          <ion-spinner  name="bubbles"></ion-spinner>
+        </div>
 
+   
            <ion-slides [options]="slideOptions">
 
              <ion-slide style="display: block; padding: 4px; text-align: center;" *ngFor="let element of data">
-                
                 <h6> {{ element.main.temp }} <sup>*</sup></h6>
                 <h6 class="ion-text-primary"> {{ element.main.temp_max }}%</h6>
           
