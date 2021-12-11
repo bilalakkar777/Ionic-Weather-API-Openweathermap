@@ -1,0 +1,7 @@
+{
+  "name": "Weather_Openweathermap",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
